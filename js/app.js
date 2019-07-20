@@ -95,3 +95,5 @@ Animal.loadAnimals = () => {
 };
 
 $(() => Animal.readJson());
+console.log(Animal.allAnimals);
+console.log(Animal.animalTypes);
