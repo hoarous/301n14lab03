@@ -6,11 +6,13 @@ function Animal(animal) {
   this.description = animal.description;
   this.keyword = animal.keyword;
   this.horns = animal.horns;
+  this.page='pg' + currentPage;
 }
 
 //create animals array
-Animal.allAnimals = [];
+Animal.allAnimals = [[],[]];
 Animal.animalTypes = [];
+let currentPage = 1;
 
 Animal.prototype.toHTML = function(){
   let template = $('#photo-template').html();
@@ -79,10 +81,16 @@ Animal.options = function() {
 
 //read JSON data
 Animal.readJson = () => {
-  $.get("data/page-1.json", "json")
+  let sourcedata;
+  if(currentPage===1){
+    sourcedata = 'data/page-1.json';
+  } else {
+    sourcedata = 'data/page-2.json';
+  }
+  $.get(sourcedata, "json")
     .then(data => {
       data.forEach(item => {
-        Animal.allAnimals.push(new Animal(item));
+        Animal.allAnimals[currentPage-1].push(new Animal(item));
       });
     })
 
@@ -90,10 +98,28 @@ Animal.readJson = () => {
 };
 
 Animal.loadAnimals = () => {
-  Animal.allAnimals.forEach(animal => $('#pg1').append(animal.toHTML()));
+  let page;
+  if(currentPage===1){
+    page='#pg1';
+  } else{
+    page = '#pg2';
+  }
+  Animal.allAnimals[currentPage-1].forEach(animal => $(page).append(animal.toHTML()));
   Animal.options();
 };
 
+const loadPage = (pg) =>{
+  currentPage = pg;
+  if(pg===1){
+    $('#pg2').hide();
+    $('#pg1').show();
+  } else if(!$('#page2').children().length){
+    $(() => Animal.readJson());
+    $('#pg1').hide();
+  } else{
+    $('#pg1').hide();
+    $('#pg2').show();
+  }
+}
+
 $(() => Animal.readJson());
-console.log(Animal.allAnimals);
-console.log(Animal.animalTypes);
