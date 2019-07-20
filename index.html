@@ -24,7 +24,7 @@
     </script>
 
     <script id="keyword-template" type="text/x-handlebars-template">
-      <option class="option">{{keyword}}</option>
+      <option class="pg{{page}}">{{keyword}}</option>
     </script>
 
   </head>
@@ -34,10 +34,12 @@
       <select id="sel" name="animalChoices">
         <option value="animals">Filter by Keyword</option>
       </select>
+      <button type="button" onclick="showPageOne()" id="pg1button">Page 1</button>
+      <button type="button" onclick="showPageTwo()" id="pg2button">Page 2</button>
     </header>
     <main>
-      <section id="pg1"></section>
-      <section id="pg2"></section>
+      <section class="pg1" id="page1"></section>
+      <section class="pg2" id="page2"></section>
       <!-- <section id="photo-template">
         <h2></h2>
         <img src="" alt="" />

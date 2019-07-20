@@ -9,8 +9,10 @@ function Animal(animal) {
 }
 
 //create animals array
-Animal.allAnimals = [];
-Animal.animalTypes = [];
+const allAnimals1 = [];
+const allAnimals2 = [];
+const animalTypes1 = [];
+const animalTypes2 = [];
 
 Animal.prototype.toHTML = function(){
   let template = $('#photo-template').html();
@@ -18,12 +20,20 @@ Animal.prototype.toHTML = function(){
   return templateRender(this);
 }
 
-Animal.options = function() {
-    let list = this.animalTypes;
+Animal.options = function(pg) {
+  let animalArray;
+  let list;
+  if(pg===1){
+    animalArray = allAnimals1;
+    list = animalTypes1;
+  } else {
+    animalArray = allAnimals2;
+    list = animalTypes2;
+  }
     let template = $('#keyword-template').html();
     let templateRender = Handlebars.compile(template);
   
-    Animal.allAnimals.forEach(el => {
+    animalArray.forEach(el => {
       if ($.inArray(el.keyword, list) === -1) {
         list.push(el.keyword);
         $('#sel').append(templateRender(el));
@@ -78,22 +88,51 @@ Animal.options = function() {
 // });
 
 //read JSON data
-Animal.readJson = () => {
-  $.get("data/page-1.json", "json")
+Animal.readJson = (pg) => {
+  let sourcefile;
+  let animalArray;
+  if(pg===1){
+    sourcefile='data/page-1.json';
+    animalArray = allAnimals1;
+  }else{
+    sourcefile='data/page-2.json';
+    animalArray = allAnimals2;
+  }
+  $.get(sourcefile, "json")
     .then(data => {
       data.forEach(item => {
-        Animal.allAnimals.push(new Animal(item));
+        animalArray.push(new Animal(item));
       });
     })
 
-    .then(Animal.loadAnimals);
+    .then(Animal.loadAnimals(pg));
 };
 
-Animal.loadAnimals = () => {
-  Animal.allAnimals.forEach(animal => $('#pg1').append(animal.toHTML()));
+Animal.loadAnimals = (pg) => {
+  let page;
+  let animalArray;
+  if(pg===1){
+    page='#page1';
+    animalArray = allAnimals1;
+  }else{
+    page='#page2';
+    animalArray = allAnimals2;
+  }
+  
+  animalArray.forEach((animal) => $(page).append(animal.toHTML()));
   Animal.options();
 };
 
-$(() => Animal.readJson());
-console.log(Animal.allAnimals);
-console.log(Animal.animalTypes);
+$(() => Animal.readJson(1));
+
+const showPageOne = () => {
+$('.pg2').hide();
+$('.pg1').show();
+}
+const showPageTwo = () =>{
+  if(!$('#page2').children().length){
+    $(() => Animal.readJson(2));
+  };
+  $('.pg1').hide();
+  $('.pg2').show();
+}
