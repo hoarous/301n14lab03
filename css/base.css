@@ -1,0 +1,32 @@
+html {
+  background-color: #aabbff;
+  color: white;
+}
+
+h1,
+h2,
+p,
+footer {
+  text-align: center;
+}
+
+h1 {
+    font-size: 56px;
+    margin-bottom: 15px;
+    font-weight: bolder;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h1,
+h2 {
+  font-family: "Amatic SC", cursive;
+}
+
+p {
+  font-family: "Open Sans Condensed", sans-serif;
+  margin-top: 5px;
+}

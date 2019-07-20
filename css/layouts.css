@@ -1,0 +1,20 @@
+img {
+  height: auto;
+  width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  body {
+    max-width: 90%;
+  }
+  div {
+    width: 100%;
+  }
+}
+
+@media all and (min-width: 768px) {
+  body {
+    max-width: 976px;
+    margin: 0 auto;
+  }
+}
