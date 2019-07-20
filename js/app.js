@@ -25,7 +25,7 @@ Animal.options = function() {
     let template = $('#keyword-template').html();
     let templateRender = Handlebars.compile(template);
   
-    Animal.allAnimals.forEach(el => {
+    Animal.allAnimals[currentPage-1].forEach(el => {
       if ($.inArray(el.keyword, list) === -1) {
         list.push(el.keyword);
         $('#sel').append(templateRender(el));
@@ -72,12 +72,12 @@ Animal.options = function() {
 //   });
 // };
 
-// $('select[name="animalChoices"]').on("change", function() {
-//   let $selection = $(this).val();
-//   console.log($selection);
-//   $(".animals").hide();
-//   $("." + $selection).show();
-// });
+$('select[name="animalChoices"]').on("change", function() {
+  let $selection = $(this).val();
+  console.log($selection);
+  $(".animals").hide();
+  $("." + $selection).show();
+});
 
 //read JSON data
 Animal.readJson = () => {
@@ -113,12 +113,12 @@ const loadPage = (pg) =>{
   if(pg===1){
     $('#pg2').hide();
     $('#pg1').show();
-  } else if(!$('#page2').children().length){
-    $(() => Animal.readJson());
-    $('#pg1').hide();
-  } else{
+  } else if($('#pg2').children().length>0){
     $('#pg1').hide();
     $('#pg2').show();
+  } else{
+    $(() => Animal.readJson());
+    $('#pg1').hide();
   }
 }
 
