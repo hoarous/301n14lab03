@@ -18,6 +18,19 @@ Animal.prototype.toHTML = function(){
   return templateRender(this);
 }
 
+Animal.options = function() {
+    let list = this.animalTypes;
+    let template = $('#keyword-template').html();
+    let templateRender = Handlebars.compile(template);
+  
+    Animal.allAnimals.forEach(el => {
+      if ($.inArray(el.keyword, list) === -1) {
+        list.push(el.keyword);
+        $('#sel').append(templateRender(el));
+      }
+    });
+  };
+
 
 // OLD CODE: non-handlebars
 
@@ -41,21 +54,21 @@ Animal.prototype.toHTML = function(){
 // };
 
 // //set keyword filters; used stack overflow to remove duplicates
-Animal.options = function() {
-  let list = this.animalTypes;
+// Animal.options = function() {
+//   let list = this.animalTypes;
 
-  Animal.allAnimals.forEach(el => {
-    if ($.inArray(el.keyword, list) === -1) {
-      list.push(el.keyword);
-    }
-  });
+//   Animal.allAnimals.forEach(el => {
+//     if ($.inArray(el.keyword, list) === -1) {
+//       list.push(el.keyword);
+//     }
+//   });
 
-  list.forEach(keyword => {
-    let options = $('<option class="option"></option>');
-    options.text(keyword);
-    $("#sel").append(options);
-  });
-};
+//   list.forEach(keyword => {
+//     let options = $('<option class="option"></option>');
+//     options.text(keyword);
+//     $("#sel").append(options);
+//   });
+// };
 
 // $('select[name="animalChoices"]').on("change", function() {
 //   let $selection = $(this).val();

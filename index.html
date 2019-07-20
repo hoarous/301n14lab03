@@ -14,12 +14,17 @@
       href="https://fonts.googleapis.com/css?family=Amatic+SC|Open+Sans+Condensed:300&display=swap"
       rel="stylesheet"
     />
+
     <script id="photo-template" type="text/x-handlebars-template">
-      <section class="{{keyword}} {{horns}}horns">
+      <div class="{{keyword}} {{horns}}horns">
         <h2>{{title}}</h2>
         <img src="{{img_url}}" alt="{{keyword}}" />
         <p>{{description}}</p>
-      </section>
+      </div>
+    </script>
+
+    <script id="keyword-template" type="text/x-handlebars-template">
+      <option class="option">{{keyword}}</option>
     </script>
 
   </head>
@@ -31,6 +36,8 @@
       </select>
     </header>
     <main>
+      <section id="pg1"></section>
+      <section id="pg2"></section>
       <!-- <section id="photo-template">
         <h2></h2>
         <img src="" alt="" />
