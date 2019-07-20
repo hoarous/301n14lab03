@@ -12,26 +12,35 @@ function Animal(animal) {
 Animal.allAnimals = [];
 Animal.animalTypes = [];
 
+Animal.prototype.toHTML = function(){
+  let template = $('#photo-template').html();
+  let templateRender = Handlebars.compile(template);
+  return templateRender(this);
+}
+
+
+// OLD CODE: non-handlebars
+
 //render photos to DOM
-Animal.prototype.render = function() {
-  $("main").append('<div class="clone"></div>');
-  let animalClone = $('div[class="clone"]');
+// Animal.prototype.render = function() {
+//   $("main").append('<div class="clone"></div>');
+//   let animalClone = $('div[class="clone"]');
 
-  let animalHtml = $("#photo-template").html();
+//   let animalHtml = $("#photo-template").html();
 
-  animalClone.html(animalHtml);
+//   animalClone.html(animalHtml);
 
-  animalClone.find("h2").text(this.title);
-  animalClone
-    .find("img")
-    .attr("src", this.image_url)
-    .attr("alt", this.keyword);
-  animalClone.find("p").text(this.description);
-  animalClone.removeClass("clone");
-  animalClone.attr("class", this.keyword + " animals");
-};
+//   animalClone.find("h2").text(this.title);
+//   animalClone
+//     .find("img")
+//     .attr("src", this.image_url)
+//     .attr("alt", this.keyword);
+//   animalClone.find("p").text(this.description);
+//   animalClone.removeClass("clone");
+//   animalClone.attr("class", this.keyword + " animals");
+// };
 
-//set keyword filters; used stack overflow to remove duplicates
+// //set keyword filters; used stack overflow to remove duplicates
 Animal.options = function() {
   let list = this.animalTypes;
 
@@ -48,12 +57,12 @@ Animal.options = function() {
   });
 };
 
-$('select[name="animalChoices"]').on("change", function() {
-  let $selection = $(this).val();
-  console.log($selection);
-  $(".animals").hide();
-  $("." + $selection).show();
-});
+// $('select[name="animalChoices"]').on("change", function() {
+//   let $selection = $(this).val();
+//   console.log($selection);
+//   $(".animals").hide();
+//   $("." + $selection).show();
+// });
 
 //read JSON data
 Animal.readJson = () => {
@@ -68,7 +77,7 @@ Animal.readJson = () => {
 };
 
 Animal.loadAnimals = () => {
-  Animal.allAnimals.forEach(animal => animal.render());
+  Animal.allAnimals.forEach(animal => $('#pg1').append(animal.toHTML()));
   Animal.options();
 };
 
