@@ -1,6 +1,6 @@
 html {
-  background-color: #aabbff;
-  color: white;
+  background-color: #223344;
+  color: #446688;
 }
 
 h1,
@@ -29,4 +29,5 @@ h2 {
 p {
   font-family: "Open Sans Condensed", sans-serif;
   margin-top: 5px;
+  font-size: 10px;
 }
