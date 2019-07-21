@@ -3,9 +3,24 @@ div {
   padding: 10px;
   margin: 10px;
   overflow: hidden;
-  height: 350px;
-  max-width: 200px;
-  word-wrap: break-word;
+  height: 200px;
+  background-color: #88ccff;
+  border-radius: 4px;
+}
+
+button, select{
+  margin: auto;
+  padding:10px;
+  background-color: #446688;
+  color: #88ccff;
+  border: none;
+  font-family: "Amatic SC", cursive;
+  font-size: 24px;
+}
+
+img {
+  height: 150px;
+  width: auto;
 }
 
 footer {

@@ -1,14 +1,13 @@
-img {
-  height: auto;
-  width: 100%;
+
+section{
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
 }
 
 @media all and (max-width: 600px) {
   body {
     max-width: 90%;
-  }
-  div {
-    width: 100%;
   }
 }
 
